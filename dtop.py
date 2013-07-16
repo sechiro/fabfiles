@@ -36,7 +36,7 @@ def dtop(dstat_file='/tmp/dstat',dstat_opt='Tclmdrn',interval='1'):
 def _init_console(lines, max_host_len):
     local('clear')
     first_line = lines.pop(0)
-    if re.match('^Terminal width too small', first_line):
+    if re.match('(Terminal width too small)|(You did not select any stats)', first_line):
         first_line = lines.pop(0)
 
     print '%s\t%s' % ( ' ' * max_host_len, first_line )
