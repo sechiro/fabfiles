@@ -5,7 +5,7 @@ import re
 
 @task(default=True)
 @parallel
-def dtop():
+def dtop(dstat_file='/tmp/dstat',dstat_opt='Tclmdrn',interval='1'):
     """ fab -H 192.168.1.1,localhost dtop """
     index = env.hosts.index(env.host)
     max_host_len = _get_max_host_len()
@@ -14,7 +14,7 @@ def dtop():
     while True:
         try:
             with settings( hide('warnings', 'running', 'stdout', 'stderr'), warn_only=True):
-                result = run('/tmp/dstat -Tclmdrn 1 1')
+                result = run(dstat_file + ' -' + dstat_opt + ' ' + interval +' 1')
                 if result.failed:
                     result = run('dstat -Tclmdrn 1 1')
 
